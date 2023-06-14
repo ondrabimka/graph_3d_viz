@@ -1,12 +1,9 @@
-from pathlib import Path
-from fastapi import FastAPI, Query, Depends
-from typing import List
-from db import models, crud, schemas
-from sqlalchemy.orm import Session
-from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
 import os
+
+import uvicorn
 from dotenv import load_dotenv
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
@@ -22,23 +19,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# DB Session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
-# Routes
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-@app.get("/users/")
-def read_users(db: Session = Depends(get_db)):
-    return crud.get_users(db)
+# @app.get("/")
+# def read_root():
+#     return {"Hello": "World"}
+#
+#
+# @app.get("/health")
+# def health():
+#     return {"status": "ok"}
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", reload=True, port=os.getenv['FAST_API_PORT'])
+    uvicorn.run("main:app", host="0.0.0.0", reload=True, port=os.getenv["FAST_API_PORT"])

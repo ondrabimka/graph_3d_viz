@@ -6,7 +6,7 @@ import CypherViz from './CypherViz';
 function App({driver}) {
   return (
     <div className="App">
-      <CypherViz driver={driver}></CypherViz> 
+      <CypherViz driver={driver}></CypherViz>
     </div>
   );
 }

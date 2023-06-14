@@ -6,7 +6,7 @@ import * as neo4j from  'neo4j-driver';
 
 const driver = neo4j.driver('bolt://10.4.2.7:7687', neo4j.auth.basic('neo4j','password'))
 
-const rootElement = 
+const rootElement =
 document.getElementById('root');
 const root = createRoot(rootElement);
 

@@ -9,9 +9,9 @@ class CypherViz extends React.Component {
     constructor({driver}) {
       super();
       this.driver = driver;
-      this.state = { 
+      this.state = {
         query: `
-        MATCH (g_a: GENE)-[r:SL]->(g_b: GENE) 
+        MATCH (g_a: GENE)-[r:SL]->(g_b: GENE)
         RETURN g_a.hgnc_id as source, labels(g_a) as labels_a, g_b.hgnc_id as target, labels(g_b) as labels_b LIMIT 3
         `,
         data : {nodes:[{name:"HGNC:100", label:"GENE"}, {name:"DB0009", label:"COMPOUND"}],links: [{source:"HGNC:100", target:"DB0009"}]} }
@@ -63,11 +63,11 @@ class CypherViz extends React.Component {
         <div class="fullscreen">
           <textarea class = "textfield" value={this.state.query} onChange={this.handleChange}/>
           <button class= "main-button" onClick={this.loadData}>Reload</button>
-          <ForceGraph3D class="content" graphData={this.state.data} nodeId="name" 
+          <ForceGraph3D class="content" graphData={this.state.data} nodeId="name"
                     linkCurvature={0.2} nodeAutoColorBy="label" />
         </div>
-      );  
+      );
     }
   }
-  
+
   export default CypherViz

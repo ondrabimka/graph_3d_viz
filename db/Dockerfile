@@ -1,3 +1,4 @@
+#!/bin/bash
 FROM neo4j:5.8.0-community
 
 COPY import/ import/

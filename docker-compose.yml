@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  neo4j:
+    build:
+      context: db
+      dockerfile: Dockerfile
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - .:/data/neo4j
+    environment:
+      - NEO4J_AUTH=none
+    networks:
+      - neo4j-network
+
+networks:
+  neo4j-network:
+    driver: bridge

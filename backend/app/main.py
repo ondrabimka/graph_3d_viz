@@ -1,6 +1,7 @@
 import os
 
 import uvicorn
+from db.neo4j_conn import Neo4jConnClass
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,15 +20,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+graph = Neo4jConnClass()
 
-# @app.get("/")
-# def read_root():
-#     return {"Hello": "World"}
-#
-#
-# @app.get("/health")
-# def health():
-#     return {"status": "ok"}
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
+@app.get("/neo4j_query")
+def neo4j_query(query: str):
+    return graph.run(query).to_data_frame()
 
 
 if __name__ == "__main__":

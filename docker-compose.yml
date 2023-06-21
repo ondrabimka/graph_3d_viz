@@ -1,20 +1,44 @@
 version: '3.7'
 
 services:
-  neo4j:
+  memgraph:
     build:
-      context: db
+      context: ./db
       dockerfile: Dockerfile
     ports:
-      - "7474:7474"
-      - "7687:7687"
+      - 7687:7687
     volumes:
-      - .:/data/neo4j
+      - ./memgraph:/var/lib/memgraph
     environment:
-      - NEO4J_AUTH=none
+      - MG_AUTH_ENABLED=false
+      - MG_LISTEN_ADDRESS=localhost
+      - MG_LISTEN_PORT=7687
+      - MG_LOG_LEVEL=info
     networks:
-      - neo4j-network
+      - default
+
+  # backend:
+  #   build: ./backend
+  #   ports:
+  #     - 8000:8000
+  #   volumes:
+  #     - ./backend:/app
+  #   depends_on:
+  #     - memgraph
+  #   networks:
+  #     - default
+
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./frontend:/app
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - default
 
 networks:
-  neo4j-network:
-    driver: bridge
+  default:
+    name: memgraph

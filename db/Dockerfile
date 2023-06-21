@@ -6,3 +6,5 @@ COPY load.sh load.sh
 
 # RUN chmod +x load.sh
 # RUN ./load.sh
+
+RUN echo "DONE"

@@ -1,7 +1,5 @@
-import os
-
 import uvicorn
-from db.neo4j_conn import Neo4jConnClass
+from db.neo4j_conn import GraphConnClass
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,7 +8,7 @@ load_dotenv()
 
 app = FastAPI()
 
-CORS_ALLOW_ORIGINS = []
+CORS_ALLOW_ORIGINS = ["http://localhost:3001", "localhost:8000", "localhost:8001"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,7 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-graph = Neo4jConnClass()
+graph = GraphConnClass("localhost", 7687, "", "")
 
 
 @app.get("/")
@@ -38,5 +36,11 @@ def neo4j_query(query: str):
     return graph.run(query).to_data_frame()
 
 
+# @app.get("/get_whole_graph")
+def get_whole_graph():
+    # return graph as json
+    return graph.get_whole_graph()
+
+
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", reload=True, port=os.getenv["FAST_API_PORT"])
+    uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8001)

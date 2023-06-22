@@ -2,3 +2,4 @@ data/
 .env
 memgraph/
 db/import/
+__pycache__/

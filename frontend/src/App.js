@@ -3,10 +3,10 @@ import './App.css';
 import CypherViz from './CypherViz';
 
 
-function App({driver}) {
+function App() {
   return (
     <div className="App">
-      <CypherViz driver={driver}></CypherViz>
+      <CypherViz></CypherViz>
     </div>
   );
 }

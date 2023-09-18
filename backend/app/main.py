@@ -1,5 +1,5 @@
 import uvicorn
-from db.neo4j_conn import GraphConnClass
+from db.graph_conn import GraphConnClass
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,7 +8,7 @@ load_dotenv()
 
 app = FastAPI()
 
-CORS_ALLOW_ORIGINS = ["http://localhost:3001", "localhost:8000", "localhost:8001"]
+CORS_ALLOW_ORIGINS = ["http://localhost:3000", "localhost:8000", "localhost:8001"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,7 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-graph = GraphConnClass("localhost", 7687, "", "")
+graph = GraphConnClass("memgraph", 7687, "", "")
 
 
 @app.get("/")
@@ -31,16 +31,15 @@ def health():
     return {"status": "ok"}
 
 
-@app.get("/neo4j_query")
-def neo4j_query(query: str):
-    return graph.run(query).to_data_frame()
+@app.post("/cypher_query")
+def graph_query(query: str):
+    return graph.get_graph_w_query(query)
 
 
-# @app.get("/get_whole_graph")
+@app.get("/get_whole_graph")
 def get_whole_graph():
-    # return graph as json
     return graph.get_whole_graph()
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8001)
+    uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8000)

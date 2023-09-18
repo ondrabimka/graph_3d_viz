@@ -8,7 +8,7 @@ services:
     ports:
       - 7687:7687
       - 7444:7444
-      - 3000:3000
+      - 3001:3000
     volumes:
       - mg_lib:/var/lib/memgraph
       - mg_log:/var/log/memgraph
@@ -20,34 +20,34 @@ services:
       - MG_LOG_LEVEL=info
     networks:
       - default
-    entrypoint: ["/usr/bin/supervisord"]
 
+  backend:
+    build: ./backend
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - memgraph
+    networks:
+      - default
+    command: python3 app/main.py
 
-  # backend:
-  #   build: ./backend
-  #   ports:
-  #     - 8000:8000
-  #   volumes:
-  #     - ./backend:/app
-  #   depends_on:
-  #     - memgraph
-  #   networks:
-  #     - default
-
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./frontend:/app
-  #   depends_on:
-  #     - backend
-  #   networks:
-  #     - default
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    networks:
+      - default
 
 networks:
   default:
     name: memgraph
+    driver: bridge
 
 volumes:
   mg_lib:

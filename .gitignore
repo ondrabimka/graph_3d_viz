@@ -2,3 +2,4 @@ data/
 .env
 memgraph/
 __pycache__/
+playground.ipynb

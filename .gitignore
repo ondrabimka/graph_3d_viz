@@ -3,3 +3,4 @@ data/
 memgraph/
 __pycache__/
 playground.ipynb
+.DS_Store

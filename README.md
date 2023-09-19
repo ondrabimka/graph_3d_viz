@@ -1,7 +1,8 @@
 # Memgraph + FastAPI + React (React-Force-Graph) + Docker
-This is a simple example of how to use [Memgraph](https://memgraph.com/) with [FastAPI](https://fastapi.tiangolo.com/) and [React](https://reactjs.org/) [React-Force-Graph](https://github.com/vasturiano/react-force-graph) in a Docker environment.
+This is a simple example of how to use [Memgraph](https://memgraph.com/) with [FastAPI](https://fastapi.tiangolo.com/) and [React](https://reactjs.org/) => [React-Force-Graph](https://github.com/vasturiano/react-force-graph) in a Docker environment.
 
-
+### Schema
+![Schema](img/fullstack_3d_viz.drawio.png)
 
 ## Requirements
 - [Docker](https://docs.docker.com/get-docker/)
@@ -16,7 +17,7 @@ This is a simple example of how to use [Memgraph](https://memgraph.com/) with [F
 Data is loaded from db/import/*.csv files into Memgraph via load.sh script. Feel free to modify the data in those files and reload the data by running `docker-compose up` again.
 
 ## Screenshots
-![Screenshot]()
+![Screenshot](img/app_screenshot.png)
 
 ## Acknowledgements
 - [Memgraph](https://memgraph.com/)
@@ -24,6 +25,7 @@ Data is loaded from db/import/*.csv files into Memgraph via load.sh script. Feel
 - [React](https://reactjs.org/)
 - [React-Force-Graph](https://github.com/vasturiano/react-force-graph)
 - [Docker](https://www.docker.com/)
+- [Uvicorn](https://www.uvicorn.org/)
 
 ## Contributing
 If you have any suggestions, ideas or you want to contribute please contact me or just make a pull request.

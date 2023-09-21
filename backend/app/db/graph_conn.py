@@ -12,13 +12,10 @@ class GraphConnClass(Memgraph):
     ----------
     host : str
         Hostname of the graph database
-
     port : int
         Port of the graph database
-
     username : str
         Username of the graph database
-
     password : str
         Password of the graph database
 

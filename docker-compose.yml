@@ -22,7 +22,9 @@ services:
       - default
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - 8000:8000
     volumes:
@@ -34,7 +36,9 @@ services:
     command: python3 app/main.py
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     volumes:

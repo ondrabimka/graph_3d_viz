@@ -17,7 +17,7 @@ class CypherViz extends React.Component {
   }
 
   loadData = async () => {
-    const response = await fetch('http://0.0.0.0:8000/get_whole_graph');
+    const response = await fetch('http://localhost:8000/get_whole_graph');
     const body = await response.json();
     this.setState({data: body});
   }

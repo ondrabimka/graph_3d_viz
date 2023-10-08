@@ -16,8 +16,15 @@ This is a simple example of how to use [Memgraph](https://memgraph.com/) with [F
 ## How it works
 Data is loaded from db/import/*.csv files into Memgraph via load.sh script. Feel free to modify the data in those files and reload the data by running `docker-compose up` again.
 
+### Data
+Currently data consists of atp matches from 2023. Data was downloaded from https://github.com/JeffSackmann/tennis_atp.
+
 ## Screenshots
+React-Force-Graph (port 3000)
 ![Screenshot](img/app_screenshot.png)
+
+Memgraph Lab (port 3001)
+![Screenshot](img/memgraph_lab_screenshot.png)
 
 ## Acknowledgements
 - [Memgraph](https://memgraph.com/)

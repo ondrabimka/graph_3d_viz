@@ -2,12 +2,19 @@
 
 echo "Running load.sh"
 
-# Check if CSV file people_nodes.csv and people_relationships exists in the import directory.
-if [ -f /import/people_nodes.csv ] && [ -f /import/people_relationships.csv ]; then
+if [ -f /import/atp_matches_2023.csv ]; then
     # Import CSV files into memgraph.
     echo "Importing CSV files into memgraph."
-    echo "LOAD CSV FROM '/import/people_nodes.csv' NO HEADER AS row CREATE (p:Person {person_id: row[0], name: row[1]});" | mgconsole
-    echo "LOAD CSV FROM '/import/people_relationships.csv' NO HEADER AS row MATCH (p1:Person {person_id: row[0]}), (p2:Person {person_id: row[1]}) CREATE (p1)-[:KNOWS]->(p2);" | mgconsole
+    # This cyhper query imports the data from import/file
+    echo "LOAD CSV FROM '/import/atp_matches_2023.csv' NO HEADER AS row
+            MERGE (p_w: PLAYER {name: row[10]})
+            MERGE (p_l: PLAYER {name: row[18]})
+            CREATE (p_w)-[df: DEF]->(p_l)
+            SET df.score = row[23],
+            df.tournament_date = row[5],
+            df.duration = row[26],
+            df.l_rank = row[47],
+            df.w_rank = row[45];" | mgconsole
     echo "Finished importing CSV files into memgraph."
 else
     echo "CSV files not found in the import directory."
